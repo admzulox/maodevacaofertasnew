@@ -16,15 +16,6 @@ export const DealCard: React.FC<DealCardProps> = ({ deal }) => {
   const [isAnimatingVote, setIsAnimatingVote] = useState(false);
   const [isReported, setIsReported] = useState(deal.reportStatus === 'pending_review');
 
-  const handleCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (deal.couponCode) {
-      navigator.clipboard.writeText(deal.couponCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
   const handleVote = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
@@ -84,7 +75,7 @@ export const DealCard: React.FC<DealCardProps> = ({ deal }) => {
     : 0;
 
   return (
-    <div className="bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 overflow-hidden flex flex-col min-h-full max-w-full transform hover:-translate-y-1">
+    <div className="bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 overflow-hidden flex flex-col min-h-full w-full transform hover:-translate-y-1">
       
       <div className="relative h-56 w-full p-6 flex items-center justify-center bg-white border-b border-gray-50">
         <img
@@ -148,7 +139,7 @@ export const DealCard: React.FC<DealCardProps> = ({ deal }) => {
             {deal.description}
           </p>
 
-          <div className="flex items-center justify-between gap-3 pt-3 border-t border-gray-100 w-full">
+          <div className="flex items-center justify-between flex-wrap gap-3 pt-3 border-t border-gray-100 w-full">
             
             <div className="flex items-center gap-2 text-gray-400">
               <button
@@ -162,7 +153,7 @@ export const DealCard: React.FC<DealCardProps> = ({ deal }) => {
               </button>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2">
               <button
                 onClick={handleReport}
                 disabled={isReported}
@@ -182,9 +173,9 @@ export const DealCard: React.FC<DealCardProps> = ({ deal }) => {
                 href={affiliateLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg shadow-brand-200 whitespace-nowrap"
+                className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg shadow-brand-200 flex-shrink-0"
               >
-                Pegar
+                <span>Pegar</span>
                 <ExternalLink size={16} />
               </a>
             </div>
